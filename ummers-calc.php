@@ -14,8 +14,8 @@
  * Text Domain:       my-basics-plugin
  * Domain Path:       /languages
  */
-
- function ummerCalculator (
+add_shortcode( 'ummers-calc', 'ummersCalculator' );
+ function ummersCalculator () {
      // Set result to false so we can check later if it should be output.
 $result = FALSE;
 if ( !empty( $_POST ) ) // Check if there are any values in our array!
@@ -40,6 +40,7 @@ if ( !empty( $_POST ) ) // Check if there are any values in our array!
       break;
   }
  }
+ ob_start();
 ?>
 <form method="POST" action="#">
   <label for="num1">
@@ -83,5 +84,10 @@ if ( !empty( $_POST ) ) // Check if there are any values in our array!
     Your result for your calculation is:
     <?php echo $result; ?>
   </p>
-<?php endif; ?>
- )
+<?php endif; 
+//END OUTPUT BUFFER
+//Everything after this point wil be echod like normal again 
+$outputString = ob_get_clean();
+
+return $outputString;
+ }
